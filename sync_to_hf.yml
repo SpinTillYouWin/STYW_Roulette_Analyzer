@@ -1,0 +1,28 @@
+name: Sync to Hugging Face
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-to-hugging-face:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Hugging Face
+        uses: dmnemec/copy_file_to_another_repo_action@v1.2.0
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          source_file: '.'
+          destination_repo: 'ysforce1/SpinTillYouWinV3.0RunningLatestNotRunningInAnotherSpace'
+          destination_branch: 'main'
+          user_email: 'yusufozusennew@gmail.com'
+          user_name: 'SpinTILLYOUWin'
+          destination_repo_type: 'huggingface'
+          huggingface_token: ${{ secrets.HF_TOKEN }}
